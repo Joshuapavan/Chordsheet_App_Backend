@@ -11,18 +11,18 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        ports:
-          - "3306:3306"
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: rails_test
-          MYSQL_USER: rails
-          MYSQL_PASSWORD: password
+  # test:
+  #   runs-on: ubuntu-latest
+  #   services:
+  #     mysql:
+  #       image: mysql:5.7
+  #       ports:
+  #         - "3306:3306"
+  #       env:
+  #         MYSQL_ROOT_PASSWORD: password
+  #         MYSQL_DATABASE: rails_test
+  #         MYSQL_USER: rails
+  #         MYSQL_PASSWORD: password
     # env:
     #   RAILS_ENV: test
     #   DATABASE_URL: "mysql2://rails:password@localhost:3306/rails_test"

@@ -6,6 +6,8 @@ class User < ApplicationRecord
   :recoverable, :validatable, 
   :jwt_authenticatable, jwt_revocation_strategy: self
 
+  has_many :songs, dependent: :destroy
+
   def jwt_payload
     super
   end

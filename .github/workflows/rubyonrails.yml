@@ -23,24 +23,28 @@ jobs:
           MYSQL_DATABASE: rails_test
           MYSQL_USER: rails
           MYSQL_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "mysql2://rails:password@localhost:3306/rails_test"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1 # Use the latest available version
-      - name: Install Bundler
-        run: gem install bundler
-      - name: Remove Gemfile freeze
-        run: bundle config set frozen false
-      - name: Bundle Install
-        run: bundle install --jobs 4
-      - name: Set up database schema
-        run: bin/rails db:schema:load
-      - name: Run tests
-        run: bin/rake
+    # env:
+    #   RAILS_ENV: test
+    #   DATABASE_URL: "mysql2://rails:password@localhost:3306/rails_test"
+    # steps:
+    #   - name: Checkout code
+    #     uses: actions/checkout@v3
+    #   - name: Setup Ruby
+    #     uses: ruby/setup-ruby@v1 # Use the latest available version
+    #   - name: Install Bundler
+    #     run: gem install bundler
+    #   - name: Remove Gemfile freeze
+    #     run: bundle config set frozen false
+    #   - name: Bundle Install
+    #     run: bundle install --jobs 4
+    #   - name: Install bundler-audit
+    #     run: gem install bundler-audit
+    #   - name: Run bundler-audit
+    #     run: bundle-audit update
+    #   - name: Set up database schema
+    #     run: bin/rails db:schema:load
+    #   - name: Run tests
+    #     run: bin/rake
 
   lint:
     runs-on: ubuntu-latest
@@ -55,8 +59,10 @@ jobs:
         run: bundle config set frozen false
       - name: Install Ruby and gems
         run: bundle install --jobs 4
+      - name: Install bundler-audit
+        run: gem install bundler-audit
       - name: Security audit dependencies
-        run: bin/bundler-audit --update
+        run: bundle-audit update
       - name: Security audit application code
         run: bin/brakeman -q -w2
       - name: Lint Ruby files

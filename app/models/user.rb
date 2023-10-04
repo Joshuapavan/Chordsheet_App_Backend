@@ -6,7 +6,9 @@ class User < ApplicationRecord
   :recoverable, :validatable, 
   :jwt_authenticatable, jwt_revocation_strategy: self
 
-  has_many :songs, dependent: :destroy
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "email", "encrypted_password", "id", "jti", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at"]
+  end
 
   def jwt_payload
     super

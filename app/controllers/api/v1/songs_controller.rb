@@ -1,4 +1,4 @@
-class Songs::SongsController < Songs::ApplicationController
+class Api::V1::SongsController < BaseController
     # def index
     #     @songs = Song.all
     #     render json: @songs

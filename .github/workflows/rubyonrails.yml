@@ -29,6 +29,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1 # Use the latest available version
+      - name: Install Bundler
+        run: gem install bundler
       - name: Remove Gemfile freeze
         run: bundle config set frozen false
       - name: Bundle Install
@@ -43,12 +47,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1 # Use the latest available version
+      - name: Install Bundler
+        run: gem install bundler
       - name: Remove Gemfile freeze
         run: bundle config set frozen false
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          bundler-cache: true
+        run: bundle install --jobs 4
       - name: Security audit dependencies
         run: bin/bundler-audit --update
       - name: Security audit application code
